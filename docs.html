@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<title>customaudio.js Docs | annasthms</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/JZYprenkg/base.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/BDMprenkk/landing.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/zBvprdv9w/header.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/Fviprdva0/showcase.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/QRvps3ojl/posts.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/Azmprdva9/sidebar.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/Metprdvad/footer.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/biKprdvai/tippy.css" />
+	<link rel="stylesheet" type="text/css" href="https://static.tumblr.com/0podkko/HUVptd2mb/prism.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+	<style>
+	</style>
+	<style>
+	body {
+	  --text: #4f5454;
+		--accent: #068570;
+		--accent-hsl: hsl(170, 91%, 27%);
+		--accent-hsl-light: hsl(170, 91%, 27%);
+		--color-bg: #f8f8f8;
+		--table-row-odd: hsla(170, 42%, 99%, 1);
+		--table-row-even: #fff;
+	}
+	main {
+	  position: relative;
+	  width: 100%;
+	  /* margin-top: 5vw; */
+	  /* display: none; */
+	}
+	body.hide main {
+	  display: none;
+	}
+
+	section {
+	  color: var(--text);
+	}
+
+	article h1 {
+	  font-size: 2em;
+	}
+
+	article h1:first-child {
+	  margin-top: 0;
+	}
+
+	a[href="#css_note"] {
+	  text-decoration: underline;
+	}
+
+	div#boxes {
+	  padding: 1em;
+	  background: var(--color-bg);
+	}
+
+	div#boxes .box {
+	  display: inline-block;
+	  vertical-align: top;
+	  margin: 1em;
+	}
+
+	div#boxes .box > a {
+	  display: block;
+	  margin-top: 0.5em;
+	  color: #000;
+	  text-decoration: underline;
+	  text-align: center;
+	}
+
+	article#examples .set:not(:last-child) {
+	  margin-bottom: 3vw;
+	}
+
+	article#examples .example {
+	  border: 1px solid #ddd;
+	  padding: 3vw;
+	}
+
+	a[href="#view_code"] {
+	  display: inline-block;
+	  margin-top: 0.5em;
+	  /* font-weight: bold; */
+	  color: #000;
+	  text-decoration: underline;
+	}
+	a[href="#view_code"].open {
+	  text-decoration: underline;
+	}
+
+	article#examples div.code {
+	  margin-top: 1em;
+	  display: none;
+	}
+
+	article#examples div.code > div > b {
+	  display: block;
+	  margin-top: 1em;
+	  font-size: 1.15em;
+	}
+
+	div#css_note {
+	  position: fixed;
+	  top: 50%;
+	  left: 50%;
+	  width: 90%;
+	  max-width: 600px;
+	  padding: 2em;
+	  line-height: 1.65em;
+	  background: #fff;
+	  border: 1px solid var(--accent);
+	  pointer-events: none;
+	  opacity: 0;
+	  -webkit-transition: 0.35s opacity;
+	  transition: 0.35s opacity;
+	  -webkit-transform: translate(-50%, -50%);
+	  transform: translate(-50%, -50%);
+	  z-index: 10;
+	}
+	div#css_note.show {
+	  opacity: 1;
+	  pointer-events: all;
+	}
+
+	@media screen and (max-width: 600px) {
+	  main {
+	    width: 95%;
+	    margin: 5vw auto;
+	  }
+
+	  aside, article {
+	    background: #fff;
+	  }
+
+		article {
+			margin: 1em auto;
+	    padding: 1em;
+	  }
+
+	  table, tbody {
+	    overflow: auto;
+	    width: 100%;
+	    display: block;
+	  }
+	}
+
+	@media screen and (min-width: 600px) {
+	  main {
+	    width: 85vw;
+	    margin: 5vw auto;
+	  }
+
+	  section {
+	    display: inline-block;
+	    vertical-align: top;
+	    width: 55vw;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    /* delete later */
+	    margin-bottom: 3em;
+	  }
+
+	  article {
+	    background: #fff;
+	    /* padding: 2em; */
+	    padding: 2.5vw;
+	  }
+	  article:not(:last-child) {
+	    margin-bottom: 5vw;
+	  }
+
+	/*
+	  article.post .post_body .comment_content a {
+	    background: var(--accent);
+	    color: #fff;
+	    padding: 0.15em 0.4em;
+	    font-size: 0.9em;
+	    border-radius: 0.35em;
+	    -webkit-transition: 0.35s all;
+	    transition: 0.35s all;
+	  }
+
+	  article.post .post_body .comment_content a:hover {
+	    color: var(--color-link-hover);
+	    background: #fff;
+	  }*/
+	}
+
+	@media screen and (max-width: 1300px) {
+	  table {
+	    border: 1px solid #f0f0f0;
+	    display: block;
+	    border-collapse: collapse;
+	  }
+	  tr {
+	    display: block;
+	    padding: 1em;
+	  }
+	  tr:first-child {
+	    display: none;
+	  }
+	  tr:nth-child(odd) {
+	    background: hsla(170, 42%, 99%, 1);
+	    border: 1px solid #f0f0f0;
+	    border-width: 1px 0;
+	  }
+	  tr.sub {
+	    /* margin-left: 1em; */
+	    /* border-left-width: 1em; */
+	    padding-left: 1.75em;
+	  }
+
+	  tr.sub::before {
+	    content: "";
+	    display: block;
+	    position: absolute;
+	    width: 0.75em;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    background: #f0f0f0;
+	  }
+	  th {
+	    display: none;
+	  }
+	  td {
+	    display: block;
+	  }
+	  td::before {
+	    font-weight: bold;
+	  }
+	  article#blocks td:nth-child(1)::before {
+	    content: "Name: ";
+	  }
+	  article#options td:nth-child(1)::before {
+	    content: "Name: ";
+	  }
+	  article#options td:nth-child(3)::before {
+	    content: "Options: ";
+	    display: block;
+	  }
+	  td:nth-child(3), td:nth-child(4) {
+	    margin-top: 1em;
+	  }
+	}
+
+	@media screen and (min-width: 1300px) {
+	  table {
+	    border-collapse: collapse;
+	    /* table-layout: fixed; */
+	    width: 100%;
+	  }
+
+	  tr:nth-child(odd) {
+	    background: var(--table-row-odd);
+	  }
+
+	  tr:nth-child(even) {
+	    background: var(--table-row-even);
+	  }
+
+	  th, td {
+	    border: 1px solid #f0f0f0;
+	    padding: 1em;
+	  }
+
+	  th:not(.no_stick) {
+	    position: -webkit-sticky;
+	    position: sticky;
+	    top: 0;
+	    background: var(--table-row-odd);
+	    z-index: 1;
+	  }
+
+	  th::after {
+	    content: "";
+	    position: absolute;
+	    display: block;
+	    height: 3px;
+	    width: 100%;
+	    background: #f0f0f0;
+	    left: 0;
+	    bottom: 0;
+	  }
+
+	  tr.sub {
+	    /* padding-left: 3em; */
+	    /* border: 1px solid #aaa; */
+	  }
+
+	  tr.sub td:first-child {
+	    /* margin-left: 1em; */
+	    /* border-left-width: 1em; */
+	    padding-left: 1.75em;
+	  }
+
+	  tr.sub td:first-child::before {
+	    content: "";
+	    display: block;
+	    position: absolute;
+	    width: 0.75em;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    background: #f0f0f0;
+	  }
+
+	  td:nth-child(2) pre {
+	    max-width: 11.5vw;
+	    /* white-space: pre-wrap; */
+	  }
+
+	  /* td:nth-child(3) pre, td:nth-child(3) code {
+	    max-width: 13vw;
+	    white-space: pre-wrap !important;
+	  } */
+	}
+
+	</style>
+</head>
+
+<body>
+	<div id="annasthms_container">
+		<div id="annasthms">
+			<div class="word">annasthms</div>
+		</div>
+	</div>
+	<header>
+		<div id="welcome">
+			<!-- <div id="welcome_text">welcome to</div> -->
+			<div id="welcome_annasthms"><span>annas</span>thms</div>
+		</div>
+		<div id="description">themes, pages, and the like by <a href="#">anna</a></div>
+	</header>
+	<div id="mobile_menu_open" onclick="document.getElementsByTagName('aside')[0].classList.add('show');">
+		<span>open menu</span>
+		<i data-feather="menu"></i>
+	</div>
+	<main>
+		<section>
+			<article id="about">
+				<h1>customaudio.js</h1>
+				<!-- <p>it updates!</p> -->
+				<p>A plugin that allows for more customization of audio posts.</p>
+			</article>
+			<article id="information">
+				<p><b>Built:</b>  August 9, 2020</p>
+				<p><b>Author:</b> annasthms</p>
+				<p><b>Requirements:</b> a tumblr blog</p>
+				<!-- <p><b>Warnings:</b> commas are going to be your enemies</p> -->
+			</article>
+			<article id="install">
+				<h1>Installation</h1>
+				<p>Either before <code class="language-html">&lt;/head&gt;</code> or before <code class="language-html">&lt;/body&gt;</code> (basically wherever you add your scripts), paste</p>
+				<!-- <pre class="select"><code class="language-html">&lt;script src=&quot;https://static.tumblr.com/0podkko/GKRptp03o/customaudio.min.js&quot;&gt;&lt;/script&gt;</code></pre> -->
+				<pre class="select"><code class="language-html">&lt;script src=&quot;https://static.tumblr.com/0podkko/aZZqe4033/customaudio.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+				<!-- <p>You <i>must</i> include the script <i>before</i> you try to use <code class="lang-js">UpdatingBox</code>.</p> -->
+				<p>The default settings use <a href="https://feathericons.com/">feather icons</a> and so, if you'd like to simply use the default settings, you must include the feather icons before the customaudio script: </p>
+				<pre class="select"><code class="language-html">&lt;script src=&quot;https://unpkg.com/feather-icons&quot;&gt;&lt;/script&gt;</code></pre>
+			</article>
+			<article id="basic">
+				<h1>Basic Usage</h1>
+				<p>Instantiate and call the function either inside a <code class="language-javascript">$(document).ready();</code> or <u>after</u> all the code for the audio posts:</p>
+				<pre><code class="language-javascript">customAudio();</code></pre>
+				<p>Examples:</p>
+				<pre><code class="lang-html">&lt;script src=&quot;https://static.tumblr.com/0podkko/GKRptp03o/customaudio.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+$(document).ready(function() {
+	customAudio();
+});
+&lt;/script&gt;</code></pre>
+			<pre><code class="lang-html">[post html]
+
+&lt;script src=&quot;https://static.tumblr.com/0podkko/GKRptp03o/customaudio.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;customAudio();&lt;/script&gt;</code></pre>
+			</article>
+			<article id="advanced">
+				<h1>Advanced Usage</h1>
+				<p><i>For those who want more control over the audio and customization&mdash;for example, those who would like audio to be customized with different options depending on the post. A general knowledge of JavaScript classes (or object-oriented programming) is recommended.</i></p>
+				<p>The <code class="lang-js">customAudio</code> function utilizes a class named <code class="lang-js">CustomAudio</code> to keep track of and localize all the relevant data and methods. <code class="lang-js">CustomAudio</code> has the following methods:</p>
+				<table>
+					<tr>
+						<th>Signature</th>
+						<th>Description</th>
+						<th>Parameters</th>
+					</tr>
+					<tr>
+						<td><code class="lang-js">constructor(options)</code></td>
+						<td>Initializes the <code class="lang-js">CustomAudio</code> class and overwrites the default settings. This is called when <code class="lang-js">new CustomAudio()</code> is called.</td>
+						<td><code class="lang-js">options</code> an object containing the settings (see <a href="#options">options</a> for details)</td>
+					</tr>
+					<tr>
+						<td><code class="lang-js">update(options)</code></td>
+						<td>Updates the settings with the new settings.</td>
+						<td><code class="lang-js">options</code> an object containing the new settings (see <a href="#options">options</a> for details)</td>
+					</tr>
+					<tr>
+						<td><code class="lang-js">pause_all()</code></td>
+						<td>Pauses all customize audio created with this instance of the class.</td>
+						<td>none</td>
+					</tr>
+					<tr>
+						<td><code class="lang-js">customize_iframe(iframe, post)</code></td>
+						<td>Customizes the audio associated with the <code class="lang-js">iframe</code>.</td>
+						<td>
+							<p><code class="lang-js">iframe</code> the audio iframe to customize (must be from <code class="lang-html">{AudioPlayer}</code></p>
+							<p><code class="lang-js">post</code> the post containing the iframe</p>
+							<p>* both must be DOM elements, not strings/etc.</p>
+						</td>
+					</tr>
+					<tr>
+						<td><code class="lang-js">create()</code></td>
+						<td>Customizes all audio iframes that can be found through the settings given when instantiating (or updating).</td>
+						<td>none</td>
+					</tr>
+					<!-- tr>td*2+(td>code.lang-js)+td -->
+					<!-- tr.sub>td*2+(td>code.lang-js)+td -->
+					<!-- tr>(td>code.lang-js)*2+td -->
+				</table>
+			</article>
+			<article id="defaults">
+				<h1>Function Option Defaults</h1>
+				<pre><code class="lang-js">customAudio({
+	post: ".post",
+	wrappers: {
+		audio: ".custom_audio_wrapper",
+		buttons: ".custom_audio_buttons",
+		duration: ".custom_audio_duration",
+		timeCurrent: ".custom_audio_current_time",
+		timeLeft: ".custom_audio_time_left",
+		seekbar: ".custom_audio_seekbar"
+	},
+	default: false,
+	pauseAll: true,
+	playButton: "&lt;i data-feather='play'&gt;&lt;/i&gt;",
+	pauseButton: "&lt;i data-feather='pause'&gt;&lt;/i&gt;",
+	errorIcon: "&lt;i data-feather='x'&gt;&lt;/i&gt;",
+	hideInfoIfError: true,
+	callAfterLoad: () => {
+		feather.replace();
+	}
+});</code></pre>
+			</article>
+			<article id="options">
+				<h1>Function Options</h1>
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Options</th>
+					</tr>
+					<tr>
+						<td>post</td>
+						<td>The posts' CSS selector.</td>
+						<td>
+							<p><code class="lang-js">"selector"</code></p>
+							<p>Example: <code class="lang-js">"article.post"</code>, <code class="lang-js">".entry"</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td>wrapper</td>
+						<td>The CSS selectors for where to fill in with the relevant audio information. Replaces the {audio:___}s from the first iteration of customAudio.js.</td>
+						<td>an object (see below)</td>
+					</tr>
+					<tr class="sub">
+						<td>audio</td>
+						<td>The CSS selector for the wrapper for the new <code class="lang-html">&lt;audio&gt;</code> element. If no element with this selector is found, the <code class="lang-html">&lt;audio&gt;</code> will be inserted right after the original iframe.</td>
+						<td><p><code class="lang-js">"selector"</code></p><p>Example: <code class="lang-js">".custom_audio_wrapper"</code></p></td>
+					</tr>
+					<tr class="sub">
+						<td>buttons</td>
+						<td>The CSS selector for the wrapper for the play/pause buttons or error icon. Replaces {audio:AudioButtons}.</td>
+						<td><p><code class="lang-js">"selector"</code></p><p>Example: <code class="lang-js">".custom_audio_buttons"</code></p></td>
+					</tr>
+					<tr class="sub">
+						<td>duration</td>
+						<td>The CSS selector for the wrapper for the total duration of the audio. Replaces {audio:PlayTimeLeft}.</td>
+						<td><p><code class="lang-js">"selector"</code></p><p>Example: <code class="lang-js">".custom_audio_duration"</code></p></td>
+					</tr>
+					<tr class="sub">
+						<td>timeCurrent</td>
+						<td>The CSS selector for the wrapper for the current time of the audio (how much of the audio has been played). Replaces {audio:CurrentPlayTime}.</td>
+						<td><p><code class="lang-js">"selector"</code></p><p>Example: <code class="lang-js">".custom_audio_current_time"</code></p></td>
+					</tr>
+					<tr class="sub">
+						<td>timeLeft</td>
+						<td>The CSS selector for the wrapper for how much time is left of the audio. Replaces {audio:PlayTimeLeft}.</td>
+						<td><p><code class="lang-js">"selector"</code></p><p>Example: <code class="lang-js">".custom_audio_time_left"</code></p></td>
+					</tr>
+					<tr class="sub">
+						<td>seekbar</td>
+						<td>The CSS selector for the wrapper of the seekbar. Replaces {audio:Seekbar} (to an extent&mdash;see <a href="#seekbar">seekbar</a> for detailes).</td>
+						<td><p><code class="lang-js">"selector"</code></p><p>Example: <code class="lang-js">".custom_audio_seekbar"</code></p></td>
+					</tr>
+					<!-- tr.sub>td*2+(td>code.lang-js)+td -->
+					<tr>
+						<td>default</td>
+						<td>
+							<p>If <code class="lang-js">true</code>, the audio player will simply be the default audio player provided by the brower.</p>
+							<p>If <code class="lang-js">false</code>, the {audio:___}s will be customizable.</p>
+						</td>
+						<td>
+							<p><code class="lang-js">true</code> or <code class="lang-js">false</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td>pauseAll</td>
+						<td>
+							<p>If <code class="lang-js">true</code>, all other audio posts will be paused when one plays.</p>
+							<p>If <code class="lang-js">false</code>, any audio post that is currently playing will continue to play, even if a different one has been clicked to play.</p>
+						</td>
+						<td>
+							<p><code class="lang-js">true</code> or <code class="lang-js">false</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td>playButton</td>
+						<td>
+							<p>The HTML for the play button icon. (The default value assumes that you have feather icons also included.)</p>
+						</td>
+						<td>
+							<p>HTML (in quotes)</p>
+							<p>Example: <code class="lang-js">"&lt;i data-feather='play'&gt;&lt;/i&gt;"</code>, <code class="lang-js">"&lt;i class='th th-play'&gt;&lt;/i&gt;"</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td>pauseButton</td>
+						<td>
+							<p>The HTML for the pause button icon. (The default value assumes that you have feather icons also included.)</p>
+						</td>
+						<td>
+							<p>HTML (in quotes)</p>
+							<p>Example: <code class="lang-js">"&lt;i data-feather='pause'&gt;&lt;/i&gt;"</code>, <code class="lang-js">"&lt;i class='th th-pause'&gt;&lt;/i&gt;"</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td>errorIcon</td>
+						<td>
+							<p>The HTML for the error icon (for when the audio cannot be loaded). (The default value assumes that you have feather icons also included.)</p>
+						</td>
+						<td>
+							<p>HTML (in quotes)</p>
+							<p>Example: <code class="lang-js">"&lt;i data-feather='x'&gt;&lt;/i&gt;"</code>, <code class="lang-js">"&lt;i class='th th-cross'&gt;&lt;/i&gt;"</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td>hideInfoIfError</td>
+						<td>
+							<p>If <code class="lang-js">true</code>, all information related to time (time left, current time, and total time) is hidden.</p>
+							<p>If <code class="lang-js">false</code>, all information related to time (time left, current time, and total time) is filled in with N/A. All the information is in a <code class="lang-html">&lt;span&gt;</code>: time left is in <code class="lang-css">span.anna_audio_time_left</code>, curren time is in <code class="lang-css">span.anna_audio_current_time</code>, and total time is in <code class="lang-css">span.anna_audio_duration</code>.</p>
+						</td>
+						<td>
+							<p><code class="lang-js">true</code> or <code class="lang-js">false</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td>callAfterLoad</td>
+						<td>
+							<p>The function that gets called after the audio has been loaded.</p>
+							<p>Note: If you don't want any function to be called, set this to <code class="lang-js">null</code>.</p>
+						</td>
+						<td>
+							<p>A function</p>
+						</td>
+					</tr>
+					<!-- tr>td*2+(td>code.lang-js)+td -->
+					<!-- tr.sub>td*2+(td>code.lang-js)+td -->
+					<!-- tr>(td>code.lang-js)*2+td -->
+				</table>
+			</article>
+			<article id="seekbar">
+				<h1>Re: The Seekbar</h1>
+				<p><code class="lang-js">customAudio</code> adds a "progress bar" within the seekbar wrapper whose width is equal to the percentage of the duration of the audio that has been played. This progress bar has the class <code class="lang-cs">custom_audio_seekbar_progress</code>.</p>
+				<p>You must style the seekbar. The parts are there, but you can not see it without styling the seekbar as it has no height, width, background color, etc.</p>
+				<p>Here is some very basic seekbar styling: </p>
+				<pre><code class="lang-css">/* .custom_audio_seekbar is the wrapper for the seekbar set when calling customAudio */
+.custom_audio_seekbar {
+	width      : 200px;
+	height     : 5px;
+	background : #dfdfdf;
+}
+
+.custom_audio_seekbar_progress {
+	width      : 0;
+	height     : 100%;
+	background : #07362c;
+}</code></pre>
+			</article>
+			<article id="example">
+				<h1>A Very Basic Example</h1>
+				<p>HTML</p>
+				<pre><code class="lang-html">&lcub;block:Audio}
+	&lcub;block:AudioPlayer}
+	&lcub;AudioPlayer}
+	&lt;div class=&quot;audio_player&quot;&gt;
+		&lt;span class="custom_audio_buttons"&gt;&lt;/span&gt;
+		&lt;span class="custom_audio_current_time"&gt;&lt;/span&gt;
+		&lt;div class="custom_audio_seekbar"&gt;&lt;/div&gt;
+		&lt;span class="custom_audio_time_left"&gt;&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;audio_info&quot;&gt;
+		&lcub;block:Artist}&lt;p&gt;artist: &lcub;Artist}&lt;/p&gt;&lcub;/block:Artist}
+		&lcub;block:Album}&lt;p&gt;album: &lcub;Album}&lt;/p&gt;&lcub;/block:Album}
+		&lcub;block:TrackName}&lt;p&gt;track name: &lcub;TrackName}&lt;/p&gt;&lcub;/block:TrackName}
+		&lt;p&gt;length: &lt;span class="custom_audio_duration"&gt;&lt;/span&gt;&lt;/p&gt;
+	&lt;/div&gt;
+	&lcub;/block:AudioPlayer}
+&lcub;/block:Audio}</code></pre>
+				<p>CSS</p>
+				<pre><code class="lang-css">.audio_player > div {
+	display        : inline-block;
+	margin         : 0 0.5em 0 0;
+	vertical-align : middle;
+}
+
+.custom_audio_buttons {
+	height : 1.25em;
+}
+.custom_audio_buttons svg {
+	width  : 1.25em;
+	height : 1.25em;
+}
+.custom_audio_error_icon svg {
+	stroke : red;
+}
+
+.custom_audio_duration {
+	display : inline;
+}
+
+.audio_player .custom_audio_seekbar {
+	width      : 200px;
+	height     : 0.5em;
+	background : #dfdfdf;
+}
+.audio_player .custom_audio_seekbar_progress {
+	width      : 0;
+	height     : 100%;
+	background : #07362c;
+}
+
+.custom_audio_time_left::before {
+	content : "-";
+}
+
+.audio_info p {
+	margin : 0.25em 0;
+}</code></pre>
+				<p>JavaScript</p>
+				<pre><code class="lang-html">&lt;script&gt;customAudio();&lt;/script&gt;</code></pre>
+			</article>
+			<article id="contact">
+				<h1>Contact</h1>
+				<p>If you have any questions that haven’t been answered, want to suggest a new feature, need help, or simply would like to leave your feedback, <a href="/faq">please let me know</a>! If the box isn't showing up, make sure you aren't missing any commas first!</p>
+			</article>
+		</section><aside>
+			<div id="mobile_close" onclick="document.getElementsByTagName('aside')[0].classList.remove('show');">
+				<span>close</span>
+				<i data-feather="x"></i>
+			</div>
+			<div id="hello" class="box">
+				<p><span id="hello_text"></span><span id="user_name" contenteditable></span> <span id="skip_name">(or <b>skip</b>.)</span></p>
+				<p id="name_changes"><small>(you can change your name by clicking on it.)</small></p>
+			</div>
+			<div id="mobile_hello" class="box">
+				<p>welcome to annasthms! annasthms is the brainchild of anna, a 17-year-old girl looking to study computer science.</p>
+			</div>
+			<div id="interact" class="box">
+				<p><b>what are you looking for?</b></p>
+				<div id="interact_options">
+					<a href="/" id="anna_home" class="interact_option">home</a>
+					<a href="/tou" id="anna_portfolio" class="interact_option">portfolio</a>
+					<a href="#" id="anna_recs" class="interact_option" onclick="document.querySelector('#recs').classList.toggle('show');return false;">recs</a>
+					<a href="/faq" id="anna_contact" class="interact_option">contact</a>
+					<a href="/about" id="anna_about" class="interact_option">about</a>
+				</div>
+				<div id="recs">
+					<p style="line-height:1.25em"><small><i>make sure you read and understand the creator's terms of use before using their code!</i></small></p>
+					<p>
+						<a href="/tagged/o: theme">themes</a>
+						<a href="/tagged/o: page">pages</a>
+						<a href="/tagged/o: codes">codes</a>
+						<a href="/tagged/o: update">update tabs</a>
+						<a href="/tagged/o: tutorial">tutorials</a>
+						<a href="/tagged/o: widget">widgets</a>
+						<a href="/tagged/o: reference">resources</a>
+					</p>
+				</div>
+				<input type="text" id="interact_input" placeholder="or, type your inqury">
+				<div id="interact_guide">
+					<div class="guide_row">(to search by tag, begin your query with <b>#</b>)</div>
+				</div>
+				<div id="interact_suggestions">
+					<div id="suggestions_title">are one of these what you're looking for?</div>
+					<div id="suggestions_box"></div>
+					<div id="suggestions_other">if not, just press enter!</div>
+				</div>
+			</div>
+		</aside>
+	</main>
+	<footer>
+		<div id="footer_info" class="box">
+			<div id="footer_description">
+				<p>annasthms is the brainchild of anna, a 17-year-old girl looking to study computer science.</p>
+			</div>
+			<div id="footer_links">
+				<a href="/">home</a>
+				<a href="/faq">contact</a>
+				<a href="/tou">themes</a>
+				<a href="/about">about</a>
+				<a href="/archive">archive</a>
+			</div>
+		</div>
+		<div id="projects" class="box">
+			<div class="project"><a href="https://codingcabin.tumblr.com/" title="coding cabin"><img src="https://api.tumblr.com/v2/blog/codingcabin.tumblr.com/avatar/512" alt="coding cabin"></a></div>
+			<div class="project"><a href="https://annasthms.tumblr.com/post/177359244495/photosetscss-by-annasthms-and-espoirthemes-to" title="photosets.css"><img src="https://66.media.tumblr.com/51fe56c78430703f6d84ab5324d86f95/tumblr_prbt95cIpg1wc12jxo1_400.png" alt="photosets.css"></a></div>
+		</div>
+	</footer>
+	<script src="https://static.tumblr.com/0podkko/YmVpnzi2l/charming.min.js"></script>
+	<script src="https://static.tumblr.com/0podkko/Khxpnzi2c/anime.min.js"></script>
+	<script src="https://static.tumblr.com/0podkko/ctFpnzi42/wordfx.js"></script>
+	<script src="https://unpkg.com/popper.js@1"></script>
+	<script src="https://unpkg.com/tippy.js@4"></script>
+	<script src="https://cdn.jsdelivr.net/npm/typeit@6/dist/typeit.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script src="https://static.tumblr.com/0podkko/M7bptd2mi/prism.js"></script>
+	<script src="https://static.tumblr.com/0podkko/5Ksps3lab/main.js"></script>
+	<script src="https://unpkg.com/feather-icons"></script>
+	<script>feather.replace();</script>
+</body>
+
+</html>
