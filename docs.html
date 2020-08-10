@@ -233,8 +233,12 @@
 	  td::before {
 	    font-weight: bold;
 	  }
-	  article#blocks td:nth-child(1)::before {
-	    content: "Name: ";
+	  article#advanced td:nth-child(1)::before {
+	    content: "Signature: ";
+	  }
+	  article#advanced td:nth-child(3)::before {
+	    content: "Parameters: ";
+	    display: block;
 	  }
 	  article#options td:nth-child(1)::before {
 	    content: "Name: ";
@@ -357,7 +361,7 @@
 				<h1>Installation</h1>
 				<p>Either before <code class="language-html">&lt;/head&gt;</code> or before <code class="language-html">&lt;/body&gt;</code> (basically wherever you add your scripts), paste</p>
 				<!-- <pre class="select"><code class="language-html">&lt;script src=&quot;https://static.tumblr.com/0podkko/GKRptp03o/customaudio.min.js&quot;&gt;&lt;/script&gt;</code></pre> -->
-				<pre class="select"><code class="language-html">&lt;script src=&quot;https://static.tumblr.com/0podkko/aZZqe4033/customaudio.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+				<pre class="select"><code class="language-html">&lt;script src=&quot;https://cdn.jsdelivr.net/gh/annasthms/customaudio@latest/customaudio.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 				<!-- <p>You <i>must</i> include the script <i>before</i> you try to use <code class="lang-js">UpdatingBox</code>.</p> -->
 				<p>The default settings use <a href="https://feathericons.com/">feather icons</a> and so, if you'd like to simply use the default settings, you must include the feather icons before the customaudio script: </p>
 				<pre class="select"><code class="language-html">&lt;script src=&quot;https://unpkg.com/feather-icons&quot;&gt;&lt;/script&gt;</code></pre>
@@ -367,7 +371,7 @@
 				<p>Instantiate and call the function either inside a <code class="language-javascript">$(document).ready();</code> or <u>after</u> all the code for the audio posts:</p>
 				<pre><code class="language-javascript">customAudio();</code></pre>
 				<p>Examples:</p>
-				<pre><code class="lang-html">&lt;script src=&quot;https://static.tumblr.com/0podkko/GKRptp03o/customaudio.min.js&quot;&gt;&lt;/script&gt;
+				<pre><code class="lang-html">&lt;script src=&quot;https://cdn.jsdelivr.net/gh/annasthms/customaudio@latest/customaudio.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 $(document).ready(function() {
 	customAudio();
@@ -375,7 +379,7 @@ $(document).ready(function() {
 &lt;/script&gt;</code></pre>
 			<pre><code class="lang-html">[post html]
 
-&lt;script src=&quot;https://static.tumblr.com/0podkko/GKRptp03o/customaudio.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/annasthms/customaudio@latest/customaudio.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;customAudio();&lt;/script&gt;</code></pre>
 			</article>
 			<article id="advanced">
@@ -421,6 +425,26 @@ $(document).ready(function() {
 					<!-- tr.sub>td*2+(td>code.lang-js)+td -->
 					<!-- tr>(td>code.lang-js)*2+td -->
 				</table>
+				<p>Here is an outline of how these methods may be used:</p>
+				<pre><code class="lang-js">// set the settings
+const settings = {
+	... // some settings
+};
+// instantiate the CustomAudio object
+const ca = new CustomAudio(settings);
+
+// do some stuff
+
+ca.create(); // customize the audios
+
+// do some more stuff
+
+ca.update({
+	// some updated settings (e.g. update the post selector or array)
+});
+
+ca.create(); // customize the new audios
+</code></pre>
 			</article>
 			<article id="defaults">
 				<h1>Function Option Defaults</h1>
@@ -455,10 +479,10 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<td>post</td>
-						<td>The posts' CSS selector.</td>
+						<td>The posts' CSS selector. Alternatively, an array containing the DOM elements of the posts.</td>
 						<td>
-							<p><code class="lang-js">"selector"</code></p>
-							<p>Example: <code class="lang-js">"article.post"</code>, <code class="lang-js">".entry"</code></p>
+							<p><code class="lang-js">"selector"</code> or an array of DOM elements</p>
+							<p>Example: <code class="lang-js">"article.post"</code>, <code class="lang-js">".entry"</code>, <code class="lang-js">$(".post").toArray()</code></p>
 						</td>
 					</tr>
 					<tr>
